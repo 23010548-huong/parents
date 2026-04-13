@@ -1,0 +1,362 @@
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Điều Khiển Dành Cho Phụ Huynh</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <!-- App Layout Wrapper -->
+    <div class="app-layout">
+        
+        <!-- Navigation Sidebar Placeholder -->
+        <div id="sidebar-container"></div>
+
+        <div class="main-content">
+            <div class="dashboard-container">
+
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-title">
+                <h1>Xin chào quý phụ huynh</h1>
+                <p>&#8594; Phụ huynh theo dõi sự tiến bộ, chuyên cần và kết quả học tập của học sinh ở một nơi.</p>
+            </div>
+            <div class="header-actions">
+                <!-- Multi-Child Selector -->
+                <div class="child-selector" id="childSelector" data-aos="fade-down" data-aos-delay="100">
+                    <!-- Rendered via JS -->
+                </div>
+            </div>
+        </header>
+
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+
+            <!-- Left Column: Main Stats & Analytics -->
+            <div class="left-column">
+
+                <!-- 1. Quick Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card card-orange" data-aos="fade-up">
+                        <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="stat-info">
+                            <h3>Học phí (Số dư)</h3>
+                            <div class="stat-value" id="tuitionBalance">5.000.000đ</div>
+                            <div class="stat-trend success" id="tuitionTrend"><i class="fa-solid fa-caret-up"></i> Hạn: 15/11/2026</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card card-blue" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div class="stat-info">
+                            <h3>Điểm trung bình (GPA)</h3>
+                            <div class="stat-value" id="gpaValue">8.5</div>
+                            <div class="stat-trend success" id="gpaTrend"><i class="fa-solid fa-caret-up"></i> +0.4 học kỳ này</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card card-purple" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="stat-info">
+                            <h3>Tỉ lệ chuyên cần</h3>
+                            <div class="stat-value" id="attendanceRate">98%</div>
+                            <div class="stat-trend success" id="attendanceTrend"><i class="fa-solid fa-caret-up"></i> 115/117 buổi</div>
+                        </div>
+                        <div class="mini-calendar" id="miniCalendar">
+                            <!-- Render via JS -->
+                        </div>
+                    </div>
+
+                    <div class="stat-card card-teal" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-icon"><i class="fa-solid fa-medal"></i></div>
+                        <div class="stat-info">
+                            <h3>Xếp hạng</h3>
+                            <div class="stat-value" id="rankValue">Top 5</div>
+                            <div class="stat-trend neutral" id="rankTrend"><i class="fa-solid fa-minus"></i> Giữ vững vị trí</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Main Analytics (Line Chart + Radar) -->
+                <div class="analytics-section" data-aos="fade-up">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h2>Thống kê Điểm số & Chuyên cần</h2>
+                            <select class="filter-select" id="chartFilter">
+                                <option value="yearly">Hàng năm</option>
+                                <option value="semester1">Học kỳ 1</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Three Column Split for Tables and Lists -->
+                <div class="three-col-grid">
+
+                    <!-- Lớp học hôm nay / Điểm danh -->
+                    <div class="card" data-aos="fade-right">
+                        <div class="card-header">
+                            <h2>Lớp học hôm nay</h2>
+                            <select class="filter-select">
+                                <option>Hôm nay</option>
+                            </select>
+                        </div>
+                        <div class="list-container" id="classList">
+                            <!-- Rendered via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Bảng thông báo -->
+                    <div class="card" data-aos="fade-left">
+                        <div class="card-header">
+                            <h2 data-i18n="notices">Bảng thông báo</h2>
+                            <button class="icon-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        </div>
+
+                        <div class="notice-list" id="noticeList">
+                            <!-- Rendered via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Academic Management (Grade Table) -->
+                <div class="card" data-aos="fade-up">
+                    <div class="card-header">
+                        <h2 data-i18n="recentGrades">Kết quả thi (Bảng điểm chi tiết)</h2>
+                        <button class="btn-sm" id="exportGradesPdf"><i class="fa-solid fa-file-pdf"></i> <span data-i18n="exportPdf">Xuất PDF</span></button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã nhận dạng</th>
+                                    <th>Kỳ thi</th>
+                                    <th>Môn học</th>
+                                    <th>Điểm</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gradesTableBody">
+                                <!-- Rendered via JS (Paginated) -->
+                            </tbody>
+                        </table>
+                        <div class="pagination-container" id="gradePagination"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right Column: Profile & Events -->
+            <div class="right-column">
+
+                <!-- Student Profile Card -->
+                <div class="card profile-card" data-aos="fade-left">
+                    <div class="card-header">
+                        <h2>Các con của tôi</h2>
+                    </div>
+                    <div class="profile-content">
+                        <img src="https://i.pravatar.cc/150?img=11" alt="Student" class="profile-avatar" id="profileAvatar">
+                        <h3 class="profile-name" id="profileName">Trần Văn An</h3>
+                        <p class="profile-id">Mã HS: <span class="text-teal" id="profileId">AD1256589</span></p>
+
+                        <div class="profile-details">
+                            <div class="detail-row">
+                                <span class="label">Lớp học</span>
+                                <span class="value" id="profileClass">: Lớp 10A1 (2026-27)</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Phân ban</span>
+                                <span class="value" id="profileDivision">: Tự nhiên</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Giới tính</span>
+                                <span class="value" id="profileGender">: Nam giới</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Ngày sinh</span>
+                                <span class="value" id="profileDob">: 15 Tháng Năm 2011</span>
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+                            <button class="action-button btn-message" id="msgGvcnBtn"><i class="fa-regular fa-comment-dots"></i> Nhắn
+                                tin GVCN</button>
+                            <button class="action-button btn-leave" id="requestLeaveBtn"><i class="fa-solid fa-file-medical"></i> Xin nghỉ
+                                phép</button>
+                            <button class="action-button btn-pay" id="quickPayBtn"><i class="fa-solid fa-credit-card"></i> Thanh
+                                toán</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Radar Chart Card (Subject Strengths) -->
+                <div class="card chart-card-small" data-aos="fade-left" data-aos-delay="100">
+                    <div class="card-header">
+                        <h2>Phân tích Năng lực</h2>
+                    </div>
+                    <div class="chart-container radar-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events Timeline -->
+                <div class="card events-card" data-aos="fade-left" data-aos-delay="200">
+                    <div class="card-header">
+                        <h2>Sự kiện sắp tới</h2>
+                    </div>
+                    <div class="timeline" id="eventTimeline">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- News has been moved to news.html -->
+            </div>
+        </div> <!-- End dashboard-container -->
+
+
+    </div> <!-- End main-content -->
+    </div> <!-- End app-layout -->
+
+    <!-- Notification Modal -->
+    <div class="modal-overlay" id="noticeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Tiêu đề thông báo</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalDesc">Nội dung chi tiết...</p>
+                <span class="date" id="modalDate">Ngày</span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="markReadBtn">Đánh dấu đã đọc</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leave Request Modal -->
+    <div class="modal-overlay" id="leaveModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Đơn xin nghỉ phép</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="leaveForm" class="modal-form">
+                    <div class="form-group">
+                        <label>Chọn ngày nghỉ</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Lý do nghỉ</label>
+                        <textarea class="form-control" rows="3" placeholder="Nhập lý do nghỉ học..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="leaveForm" class="btn btn-primary">Gửi đơn xin nghỉ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-i18n="settings">Cài đặt tài khoản</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <span>Thông báo trình duyệt</span>
+                        <label class="switch">
+                            <input type="checkbox" id="pushNotifyToggle" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span>Nhận mail định kỳ</span>
+                        <label class="switch">
+                            <input type="checkbox" id="emailNotifyToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span>Chế độ bảo mật cao</span>
+                        <label class="switch">
+                            <input type="checkbox" id="securityToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="this.closest('.modal-overlay').classList.remove('active')">Lưu cấu hình</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Payment QR Modal (Quick Pay) -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content" style="text-align:center; max-width: 400px;">
+            <div class="modal-header" style="justify-content:center;">
+                <h3>Quét mã Thanh toán Học phí</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="qrcode" style="display:flex; justify-content:center; margin: 20px 0;"></div>
+                <p id="paymentDesc" style="font-size: 14px; color: var(--text-muted);"></p>
+                <div style="margin-top: 15px; padding: 12px; background: var(--bg-color); border-radius: 8px; font-size: 13px;">
+                    Chủ tài khoản: <b>HỆ THỐNG GIÁO DỤC NINEEDU</b><br>
+                    Số tài khoản: <b>1029384756</b> (Vietcombank)
+                </div>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button class="btn btn-primary" onclick="closePaymentModal()">Tôi đã thanh toán</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <!-- QRCode library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- App Entry Point -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="/js/main.js" type="module"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Học - EduConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Navigation Sidebar Placeholder -->
+        <div id="sidebar-container"></div>
+
+        <div class="main-content">
+            <div class="dashboard-container">
+                <header class="main-header">
+                    <div class="header-title">
+                        <h1>Thời Khóa Biểu Tuần Này</h1>
+                        <p>&#8594; Lịch học chi tiết từ Thứ Hai đến Thứ Sáu.</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="child-selector" id="childSelector" data-aos="fade-down" data-aos-delay="100"></div>
+                    </div>
+                </header>
+
+
+                <div class="card" data-aos="fade-up">
+                    <div class="card-header">
+                        <h2>Tuần: 26/10 - 01/11</h2>
+                        <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Tải Excel</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" style="min-width: 800px; text-align:center;">
+                            <thead>
+                                <tr>
+                                    <th>Tiết / Giờ</th>
+                                    <th>Thứ Hai</th>
+                                    <th>Thứ Ba</th>
+                                    <th>Thứ Tư</th>
+                                    <th>Thứ Năm</th>
+                                    <th>Thứ Sáu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Sáng</strong><br><span style="font-size:12px;color:var(--text-muted)">07:00 - 11:30</span></td>
+                                    <td>
+                                        <div class="badge badge-success" style="display:block;margin:4px">Toán học</div>
+                                        <div class="badge badge-success" style="display:block;margin:4px">Ngữ Văn</div>
+                                    </td>
+                                    <td><div class="badge badge-warning" style="display:block;margin:4px">Lịch sử</div></td>
+                                    <td><div class="badge badge-success" style="display:block;margin:4px">Thể dục</div></td>
+                                    <td><div class="badge badge-warning" style="display:block;margin:4px">Tin học</div></td>
+                                    <td><div class="badge badge-success" style="display:block;margin:4px">Tiếng Anh</div></td>
+                                </tr>
+                                <tr style="background:#f8f9fc;">
+                                    <td colspan="6" style="text-align:center; padding: 10px; font-weight:bold; color:var(--text-muted);">Nghỉ trưa</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Chiều</strong><br><span style="font-size:12px;color:var(--text-muted)">14:00 - 16:30</span></td>
+                                    <td><div class="badge badge-danger" style="display:block;margin:4px">Mỹ thuật</div></td>
+                                    <td></td>
+                                    <td><div class="badge badge-success" style="display:block;margin:4px">Âm nhạc</div></td>
+                                    <td></td>
+                                    <td><div class="badge badge-success" style="display:block;margin:4px">SHLL</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <!-- App Entry Point -->
+    <script src="/js/main.js" type="module"></script>
+</body>
+</html>
+
+

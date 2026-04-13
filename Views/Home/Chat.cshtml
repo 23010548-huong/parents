@@ -1,0 +1,146 @@
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Nhắn - EduConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .chat-container {
+            display: flex; height: 70vh; border: 1px solid var(--bg-color); border-radius: var(--border-radius-lg); background: var(--card-bg); overflow: hidden; box-shadow: var(--shadow-soft);
+        }
+        .chat-sidebar {
+            width: 320px; border-right: 1px solid var(--bg-color); display: flex; flex-direction: column; background: #fafbfc;
+        }
+        [data-theme="dark"] .chat-sidebar { background: var(--card-bg); }
+        .chat-contact-header {
+            padding: 24px 20px; font-size: 16px; font-weight: 700; border-bottom: 1px solid var(--bg-color); color: var(--text-main); display:flex; align-items:center; gap: 10px;
+        }
+        .contact-item {
+            padding: 16px 20px; border-bottom: 1px solid rgba(0,0,0,0.03); display: flex; gap: 14px; cursor: pointer; transition: all 0.3s ease; align-items:center; position:relative;
+        }
+        .contact-item:hover {
+            background: var(--blue-light); padding-left: 24px;
+        }
+        .contact-item.active {
+            background: var(--blue-light); border-left: 4px solid var(--blue-main); padding-left: 16px;
+        }
+        
+        .contact-info { flex:1; min-width:0; }
+        .contact-info h4 { font-size: 14px; margin: 0 0 4px; color: var(--text-main); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+        .contact-info p { font-size: 12px; color: var(--text-muted); margin: 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .contact-status { font-size: 11px; color: var(--text-muted); text-align:right;}
+        
+        .chat-main {
+            flex: 1; display: flex; flex-direction: column; background: var(--card-bg);
+        }
+        .chat-header {
+            padding: 20px 24px; border-bottom: 1px solid var(--bg-color); display: flex; align-items: center; gap: 15px; background: var(--card-bg);
+        }
+        .chat-header-info { display: flex; flex-direction: column; }
+        #activeTeacherName { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom:2px;}
+        #activeTeacherRole { font-size: 13px; color: var(--text-muted); }
+        
+        .chat-messages {
+            flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: #f8f9fa;
+        }
+        [data-theme="dark"] .chat-messages { background: #0f1422; }
+        
+        .message { display: flex; width: 100%; }
+        .message.receive { justify-content: flex-start; }
+        .message.send { justify-content: flex-end; }
+        
+        .message-bubble {
+            max-width: 65%; padding: 14px 20px; border-radius: 20px; font-size: 14px; line-height: 1.5; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.02); word-wrap:break-word;
+        }
+        .message.receive .message-bubble {
+            background: var(--card-bg); color: var(--text-main); border-top-left-radius: 4px; border: 1px solid rgba(0,0,0,0.04);
+        }
+        [data-theme="dark"] .message.receive .message-bubble { border-color: rgba(255,255,255,0.05); }
+        .message.send .message-bubble {
+            background: linear-gradient(135deg, var(--blue-main), #2b6cb0); color: #ffffff; border-top-right-radius: 4px; border: none; box-shadow: 0 4px 10px rgba(66, 133, 244, 0.2);
+        }
+        
+        .chat-time {
+            text-align: center; margin: 12px 0; width: 100%;
+        }
+        .chat-time span {
+            font-size: 11px; padding: 6px 14px; background: rgba(0,0,0,0.05); border-radius: 12px; color: var(--text-muted); font-weight: 600;
+        }
+        [data-theme="dark"] .chat-time span { background: rgba(255,255,255,0.05); }
+
+        .chat-input {
+            padding: 20px 24px; border-top: 1px solid var(--bg-color); display: flex; gap: 12px; background: var(--card-bg); align-items:center;
+        }
+        .chat-input input {
+            flex: 1; padding: 14px 24px; border-radius: 30px; border: 1px solid rgba(0,0,0,0.08); outline: none; background: var(--bg-color); color: var(--text-main); font-size:14px; transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chat-input input:focus { border-color: var(--blue-main); box-shadow: 0 0 0 4px var(--blue-light); background: var(--card-bg); }
+        .btn-send {
+            width: 48px; height: 48px; min-width: 48px; border-radius: 50%; display:flex; align-items:center; justify-content:center; background: var(--blue-main); color: #fff; border:none; cursor:pointer; transition:all 0.3s; box-shadow: 0 4px 10px rgba(66, 133, 244, 0.3); font-size: 16px;
+        }
+        .btn-send:hover {
+            transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 15px rgba(66, 133, 244, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Navigation Sidebar Placeholder -->
+        <div id="sidebar-container"></div>
+
+        <div class="main-content">
+            <div class="dashboard-container">
+                <header class="main-header">
+                    <div class="header-title">
+                        <h1>Hộp Thư - Tin Nhắn</h1>
+                        <p>&#8594; Trao đổi trực tiếp với Giáo viên chủ nhiệm và Quản trị trường.</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="child-selector" id="childSelector" data-aos="fade-down" data-aos-delay="100"></div>
+                    </div>
+                </header>
+
+
+                <div class="chat-container" data-aos="fade-up">
+                    <div class="chat-sidebar">
+                        <div class="chat-contact-header">Danh bạ liên lạc</div>
+                        <div id="chatContactList">
+                            <!-- Render via JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="chat-main">
+                        <div class="chat-header" id="chatHeader">
+                            <div class="chat-header-info">
+                                <span id="activeTeacherName">Tiêu đề chat</span>
+                                <span id="activeTeacherRole">Mô tả...</span>
+                            </div>
+                        </div>
+
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Render via JS -->
+                        </div>
+                        <div class="chat-input" data-aos="fade-up" data-aos-anchor=".chat-container" data-aos-delay="200">
+                            <input type="text" id="chatInputInput" placeholder="Nhập tin nhắn của bạn...">
+                            <button class="btn-send" id="chatSendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/js/main.js" type="module"></script>
+
+
+</body>
+</html>
+

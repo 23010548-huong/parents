@@ -1,0 +1,103 @@
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản tin - NineEdu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Navigation Sidebar Placeholder -->
+        <div id="sidebar-container"></div>
+
+        <div class="main-content">
+            <div class="dashboard-container">
+                <header class="main-header">
+                    <div class="header-title">
+                        <h1 data-i18n="news">Bản tin NineEdu</h1>
+                        <p>&#8594; Tin tức, sự kiện và thông báo quan trọng từ nhà trường.</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="child-selector" id="childSelector" data-aos="fade-down" data-aos-delay="100"></div>
+                    </div>
+                </header>
+
+
+                <div class="news-grid">
+                    <div class="news-card" data-aos="fade-up">
+                        <div class="news-img">
+                            <span class="news-badge">Học thuật</span>
+                            <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=600" alt="News 1">
+                        </div>
+                        <div class="news-body">
+                            <div class="news-tag">Tuyển sinh 2026</div>
+                            <h3>Thông báo kế hoạch tuyển sinh lớp 6 và lớp 10 năm học 2026-2027</h3>
+                            <div class="news-footer">
+                                <span>2 giờ trước</span>
+                                <a href="#" class="read-more" data-i18n="readMore">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="news-img">
+                            <span class="news-badge" style="background: var(--purple-main);">Sự kiện</span>
+                            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=600" alt="News 2">
+                        </div>
+                        <div class="news-body">
+                            <div class="news-tag">Lễ hội</div>
+                            <h3>Chào mừng ngày Nhà giáo Việt Nam 20/11: Chuỗi hoạt động tri ân</h3>
+                            <div class="news-footer">
+                                <span>Đã đăng: 25/11</span>
+                                <a href="#" class="read-more" data-i18n="readMore">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="news-img">
+                            <span class="news-badge" style="background: var(--teal-main);">Ngoại khóa</span>
+                            <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&q=80&w=600" alt="News 3">
+                        </div>
+                        <div class="news-body">
+                            <div class="news-tag">Câu lạc bộ</div>
+                            <h3>Khai mạc giải bóng đá mini NineEdu Cup lần thứ IV</h3>
+                            <div class="news-footer">
+                                <span>Đã đăng: 24/11</span>
+                                <a href="#" class="read-more" data-i18n="readMore">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More mockup news for news page -->
+                    <div class="news-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="news-img">
+                            <span class="news-badge" style="background: var(--orange-main);">Kỹ năng</span>
+                            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=600" alt="News 4">
+                        </div>
+                        <div class="news-body">
+                            <div class="news-tag">Workshop</div>
+                            <h3>Hội thảo: "Định hướng tương lai cho con trong kỷ nguyên AI"</h3>
+                            <div class="news-footer">
+                                <span>Đã đăng: 20/11</span>
+                                <a href="#" class="read-more" data-i18n="readMore">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/js/main.js" type="module"></script>
+</body>
+</html>
+
